@@ -1,62 +1,14 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Blackjack Game</title>
-    <link rel="stylesheet" href="styles.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>BlackJack 1v1</title>
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <div id="welcomeScreen" class="welcome-screen">
-        <h1>Blackjack Game</h1>
-        <div class="room-options">
-            <button id="createRoomBtn" class="action-button">Create Room</button>
-            <div class="join-room">
-                <input type="text" id="roomIdInput" placeholder="Enter room ID">
-                <button id="joinRoomBtn" class="action-button">Join Room</button>
-            </div>
-        </div>
-        <div id="createdRoomInfo" class="room-info hidden">
-            <p>Room ID: <span id="roomId"></span></p>
-            <p>Share this ID with your friend</p>
-        </div>
-    </div>
-
-    <div id="gameContainer" class="game-container hidden">
-        <div class="score-container">
-            <div class="score">
-                <span class="player-score">You: <span id="playerScore">0</span></span>
-                <span class="opponent-score">Opponent: <span id="opponentScore">0</span></span>
-            </div>
-        </div>
-
-        <div class="game-area">
-            <div class="player-area">
-                <div class="hand-container">
-                    <div id="playerHand"></div>
-                    <div class="hand-value">Your hand: <span id="playerHandValue">0</span></div>
-                </div>
-                <div class="controls">
-                    <button id="startGameBtn" class="action-button">Start Game</button>
-                    <button id="hitButton" class="action-button">Hit</button>
-                    <button id="standButton" class="action-button">Stand</button>
-                </div>
-            </div>
-
-            <div class="deck-container">
-                <div class="deck"></div>
-            </div>
-
-            <div class="opponent-area">
-                <div class="hand-container">
-                    <div id="opponentHand"></div>
-                    <div class="hand-value">Opponent's hand: <span id="opponentHandValue">0</span></div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <script src="/socket.io/socket.io.js"></script>
-    <script src="game.js"></script>
+  <div id="game-root"></div>
+  <script src="/socket.io/socket.io.js"></script>
+  <script src="client.js"></script>
 </body>
-</html>
+</html> 

@@ -1,0 +1,397 @@
+body {
+  background: radial-gradient(ellipse at center, #388e3c 60%, #1b5e20 100%);
+  font-family: 'Roboto', Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+}
+#table-oval {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: 80vw;
+  height: 70vh;
+  background: radial-gradient(ellipse at center, #43a047 70%, #2e7d32 100%);
+  border: 12px solid #b8860b;
+  border-radius: 50% / 45%;
+  box-shadow: 0 8px 32px #0006, 0 0 0 8px #fff3 inset;
+  z-index: 1;
+}
+#game-root {
+  width: 100vw;
+  height: 100vh;
+  min-width: 0;
+  min-height: 0;
+  border-radius: 0;
+  position: relative;
+  background: transparent;
+  box-shadow: none;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: stretch;
+  overflow: hidden;
+}
+.score-box {
+  position: absolute;
+  left: 4vw;
+  top: 50%;
+  transform: translateY(-50%);
+  background: radial-gradient(circle at 60% 40%, #fff 80%, #e3e3e3 100%);
+  border-radius: 50%;
+  box-shadow: 0 4px 24px #0003, 0 0 0 8px #1976d2 inset, 0 0 0 2px #fff;
+  padding: 32px 48px;
+  font-size: 1.5em;
+  font-weight: 900;
+  color: #1976d2;
+  letter-spacing: 0.03em;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  z-index: 40;
+  border: 6px solid #ffd54f;
+  text-shadow: 0 2px 8px #fff, 0 1px 0 #ffd54f;
+}
+.card {
+  width: 9vw;
+  min-width: 60px;
+  max-width: 90px;
+  height: 13vw;
+  min-height: 90px;
+  max-height: 130px;
+  background: linear-gradient(135deg, #fff 80%, #f3f3f3 100%);
+  border: 2px solid #e0e0e0;
+  border-radius: 14px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  font-size: 1.1em;
+  margin: 0 1vw;
+  box-shadow: 0 2px 8px #0002;
+  position: relative;
+  padding: 10px 8px 10px 8px;
+  font-family: 'Roboto', Arial, sans-serif;
+  transition: box-shadow 0.2s, background 0.2s;
+  background-clip: padding-box;
+  z-index: 10;
+}
+.card.red {
+  color: #e53935;
+}
+.card.black {
+  color: #222;
+}
+.card .corner {
+  position: absolute;
+  font-size: 1em;
+  font-weight: 500;
+  letter-spacing: 0.01em;
+}
+.card .corner.tl {
+  top: 8px;
+  left: 10px;
+  text-align: left;
+}
+.card .corner.br {
+  bottom: 8px;
+  right: 10px;
+  text-align: right;
+  transform: rotate(180deg);
+}
+.card .center {
+  display: flex;
+  flex: 1;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.6em;
+  font-weight: 500;
+  flex-direction: column;
+}
+.card .pip {
+  font-size: 1.3em;
+  margin: 0 1px;
+  line-height: 1.1;
+  filter: none;
+}
+.card-face {
+  font-size: 1.5em;
+  font-weight: 600;
+  letter-spacing: 1px;
+  background: none;
+  border-radius: 0;
+  padding: 0;
+  box-shadow: none;
+  color: inherit;
+}
+.card.back {
+  background: #b71c1c;
+  color: #fff;
+  font-size: 2.2em;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 2px solid #e0e0e0;
+  box-shadow: 0 2px 8px #0001;
+  position: relative;
+  overflow: hidden;
+}
+.card.back::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: url('data:image/svg+xml;utf8,<svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="16" cy="16" r="12" stroke="white" stroke-width="2" fill="none"/><circle cx="16" cy="16" r="6" stroke="white" stroke-width="1" fill="none"/></svg>');
+  opacity: 0.25;
+  pointer-events: none;
+  background-size: 32px 32px;
+}
+#player-hand, #opponent-hand {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  flex-wrap: wrap;
+  max-width: 80vw;
+  min-height: 120px;
+  z-index: 10;
+}
+#player-hand {
+  position: absolute;
+  left: 18vw;
+  bottom: 18vh;
+}
+#opponent-hand {
+  position: absolute;
+  left: 18vw;
+  top: 18vh;
+}
+#hand-sum {
+  position: absolute;
+  left: 50%;
+  bottom: 6vh;
+  transform: translateX(-50%);
+  font-size: 1.1em;
+  color: #fff;
+  z-index: 20;
+  background: #1976d2;
+  padding: 8px 28px;
+  border-radius: 24px;
+  min-width: 120px;
+  text-align: center;
+  font-weight: 700;
+  letter-spacing: 0.03em;
+  box-shadow: none;
+  border: 2px solid #fff;
+}
+#actions {
+  position: absolute;
+  right: 18vw;
+  bottom: 18vh;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  z-index: 20;
+}
+.btn {
+  padding: 16px 40px;
+  border: none;
+  border-radius: 32px;
+  font-size: 1.2em;
+  cursor: pointer;
+  font-weight: 600;
+  background: #1976d2;
+  color: #fff;
+  box-shadow: 0 4px 16px #0005, 0 0 0 3px #fff8;
+  transition: background 0.2s, box-shadow 0.2s, filter 0.2s;
+  outline: none;
+  position: relative;
+  overflow: hidden;
+  z-index: 50;
+  border: 2px solid #fff;
+  filter: drop-shadow(0 2px 8px #1976d2aa);
+}
+.btn.hit {
+  background: #43a047;
+  box-shadow: 0 4px 16px #43a04755, 0 0 0 3px #fff8;
+  border: 2px solid #fff;
+}
+.btn.stand {
+  background: #e53935;
+  box-shadow: 0 4px 16px #e5393555, 0 0 0 3px #fff8;
+  border: 2px solid #fff;
+}
+.btn:active {
+  background: #1565c0;
+}
+.btn.disabled, .btn:disabled {
+  background: #bdbdbd !important;
+  color: #eee !important;
+  cursor: not-allowed;
+  filter: grayscale(0.7) brightness(1.1);
+  box-shadow: none;
+  border: 2px solid #eee;
+}
+.btn .ripple {
+  position: absolute;
+  border-radius: 50%;
+  transform: scale(0);
+  animation: ripple 0.6s linear;
+  background: rgba(255,255,255,0.5);
+  pointer-events: none;
+}
+@keyframes ripple {
+  to {
+    transform: scale(2.5);
+    opacity: 0;
+  }
+}
+.result-message {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+  font-size: 1.3em;
+  font-weight: bold;
+  z-index: 40;
+  pointer-events: none;
+  color: #1976d2;
+  padding: 12px 32px;
+  border-radius: 16px;
+  background: rgba(255,255,255,0.98);
+  margin: 0 auto;
+  min-width: 180px;
+  max-width: 80vw;
+  box-shadow: 0 2px 8px #0001;
+  letter-spacing: 0.01em;
+}
+.result-message.win {
+  color: #43a047;
+  background: #e8f5e9;
+}
+.result-message.lose {
+  color: #e53935;
+  background: #ffebee;
+}
+.result-message.draw {
+  color: #1976d2;
+  background: #e3f2fd;
+}
+.card.dealing {
+  position: absolute !important;
+  z-index: 1000;
+  transition: all 0.7s cubic-bezier(.4,2,.6,1);
+  box-shadow: 0 2px 8px #0002;
+  pointer-events: none;
+}
+.card.dealt {
+  position: relative !important;
+  left: 0;
+  top: 0;
+  z-index: 1;
+  transform: scale(1) rotate(0deg);
+  opacity: 1;
+  transition: all 0.7s cubic-bezier(.4,2,.6,1);
+  box-shadow: 0 2px 8px #0002;
+}
+.busted-message {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  background: #e53935;
+  color: #fff;
+  font-size: 2em;
+  font-weight: 900;
+  padding: 18px 48px;
+  border-radius: 32px;
+  box-shadow: 0 4px 24px #e5393555, 0 0 0 4px #fff inset;
+  z-index: 50;
+  text-align: center;
+  letter-spacing: 0.04em;
+  pointer-events: none;
+}
+.opponent-busted-message {
+  position: absolute;
+  left: 50%;
+  top: 10vh;
+  transform: translateX(-50%);
+  background: #e53935;
+  color: #fff;
+  font-size: 1.3em;
+  font-weight: 900;
+  padding: 12px 36px;
+  border-radius: 24px;
+  box-shadow: 0 4px 24px #e5393555, 0 0 0 4px #fff inset;
+  z-index: 45;
+  text-align: center;
+  letter-spacing: 0.04em;
+  pointer-events: none;
+}
+.opponent-busted-message.improved {
+  position: fixed;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  background: #e53935;
+  color: #fff;
+  font-size: 2em;
+  font-weight: 900;
+  padding: 18px 48px;
+  border-radius: 32px;
+  box-shadow: 0 8px 32px #e5393555, 0 0 0 8px #ffd54f inset, 0 0 0 4px #fff;
+  z-index: 1000;
+  text-align: center;
+  letter-spacing: 0.04em;
+  pointer-events: none;
+  border: 4px solid #ffd54f;
+  text-shadow: 0 2px 8px #fff, 0 1px 0 #ffd54f;
+  animation: busted-pulse 1.2s infinite alternate;
+  display: flex;
+  align-items: center;
+  gap: 18px;
+}
+@keyframes busted-pulse {
+  0% { box-shadow: 0 8px 32px #e5393555, 0 0 0 8px #ffd54f inset, 0 0 0 4px #fff; }
+  100% { box-shadow: 0 16px 48px #e53935aa, 0 0 0 16px #ffd54f55 inset, 0 0 0 8px #fff; }
+}
+@media (max-width: 700px) {
+  #table-oval {
+    width: 98vw;
+    height: 60vh;
+    border-width: 7px;
+  }
+  #player-hand, #opponent-hand {
+    left: 4vw;
+    max-width: 92vw;
+  }
+  #actions {
+    right: 4vw;
+    bottom: 6vh;
+  }
+  #hand-sum {
+    font-size: 1em;
+    padding: 6px 12vw;
+    min-width: 80px;
+  }
+  .score-box {
+    left: 2vw;
+    top: 50%;
+    transform: translateY(-50%);
+    padding: 18px 22px;
+    font-size: 1.1em;
+  }
+  .result-message {
+    min-width: 120px;
+    font-size: 1em;
+    padding: 8px 10vw;
+  }
+  .opponent-busted-message.improved {
+    font-size: 1.2em;
+    padding: 10px 8vw;
+    border-width: 2px;
+    border-radius: 18px;
+    gap: 8px;
+  }
+} 
